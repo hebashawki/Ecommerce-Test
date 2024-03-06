@@ -1,0 +1,25 @@
+<section class="my-4" *ngIf="products.length>0">
+ 
+  <div class="row g-4">
+      <div class="col-md-2" *ngFor="let item of products  ">
+          <div class="product p-2"  >
+            <i *ngIf="!whishlistData.includes(item._id)" (click)="addfav(item._id)" class="fa-regular fa-heart heart"></i>
+           <i *ngIf="whishlistData.includes(item._id)" class="heart  fa-solid fa-heart fa-2x" (click)="removeFav(item._id)"></i>
+            <div [routerLink]="['/details' , item._id]" class="p-2 cursor-pointer">
+            <img class="w-100" [src]="item.imageCover" [alt]="item.title"> 
+            <h3 class="small">{{item.category.name}}</h3>
+            <h4 style="color: #0aad0a;" class="small">{{item.title.split(' ').slice(0,2).join(' ')}}</h4>
+            <div class=" d-flex align-items-center justify-content-between">
+              <span>{{item.price}} EGP</span>
+              <div >
+              <i class="fas fa-star rating-color tex"></i>
+              <span class="text-muted">{{item.ratingsAverage}}</span>
+           </div>
+            </div>
+           </div>
+            <button (click)="addProduct(item._id)"  class="btn-main w-100">Add poduct</button>
+          </div>
+
+      </div>
+  </div>
+</section>

@@ -1,0 +1,37 @@
+<section class="bg-main-light p-4 rounded my-3 w-75 mx-auto">
+    <h1>login Now</h1>
+    <form [formGroup]="loginForm" (ngSubmit)="handleForm()">
+
+        <div class="mb-2">
+            <label for="email">email :</label>
+            <input #inputEmail id="email" formControlName="email" type="email" class="form-control">
+            <div class="alert alert-danger"
+                *ngIf=" loginForm.get('email')?.errors && (loginForm.get('email')?.touched ||inputEmail.value.length>0) ">
+                <p *ngIf="loginForm.get('email')?.getError('required')">Email is required</p>
+                <p *ngIf="loginForm.get('email')?.getError('email')">Email is invalid</p>
+
+            </div>
+
+        </div>
+        <div class="mb-2">
+            <label for="password">password :</label>
+            <input #inputPassword id="password" formControlName="password" type="password" class="form-control">
+            <div class="alert alert-danger"
+                *ngIf=" loginForm.get('password')?.errors && (loginForm.get('password')?.touched || inputPassword.value.length>0)">
+                <p *ngIf="loginForm.get('password')?.getError('required')">password is required</p>
+                <p *ngIf="loginForm.get('password')?.getError('pattern')"> password must start with upperCase then
+                    from 6 to 10</p>
+
+            </div>
+        </div>
+
+
+        <div class="d-flex justify-content-between align-items-center">
+            <div><button [disabled]="loginForm.invalid" class="btn-main ms-auto d-block">
+                <i *ngIf="isLoading" class="fas fa-spin fa-spinner"></i>
+                Login</button></div>
+            <a routerLink="/forget" class="link-primary">Forget Password</a>
+        </div>
+        <p *ngIf="msError" class="alert alert-danger">{{msError}}</p>
+    </form>
+</section>

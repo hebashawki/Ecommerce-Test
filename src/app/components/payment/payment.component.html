@@ -1,0 +1,40 @@
+<section class="w-75 mx-auto rounded shadow p-3 bg-main-light mb-3">
+   <h1>CheckOutSession</h1>
+    <form [formGroup]="orderForm" (ngSubmit)="handleForm()">
+    <div class="form-item">
+        <label for="details">details</label>
+        <input  class="form-control" type="text" id="details" formControlName="details">
+    </div>
+       <div class="form-item">
+        <label for="phone">phone</label>
+        <input id="phone" formControlName="phone" type="tel" class="form-control">
+            <div class="alert alert-danger"
+                *ngIf=" orderForm.get('phone')?.errors && orderForm.get('phone')?.touched ">
+                <p *ngIf="orderForm.get('phone')?.getError('required')">phone is required</p>
+                <p *ngIf="orderForm.get('phone')?.getError('pattern')"> accept only egypt phone numbers</p>
+
+
+            </div>
+       </div>
+    <div class="form-item">
+        <label for="city">city</label>
+        <input id="city" formControlName="city" type="text" class="form-control">
+            <div class="alert alert-danger"
+                *ngIf=" orderForm.get('city')?.errors && orderForm.get('city')?.touched ">
+                <p *ngIf="orderForm.get('city')?.getError('required')">city is required</p>
+                <p *ngIf="orderForm.get('city')?.getError('minlength')">city minlength is 3</p>
+                <p *ngIf="orderForm.get('city')?.getError('maxlength')">city maxlength is 20</p>
+            </div>
+    </div>
+    <button [disabled]="orderForm.invalid" class="btn-main ms-auto d-block mt-2">
+        <i *ngIf="isLoading" class="fas fa-spin fa-spinner"></i>
+        CheckOut</button>
+<p *ngIf="msError" class="alert alert-danger">{{msError}}</p>
+
+
+
+
+    
+    
+    </form>
+</section>

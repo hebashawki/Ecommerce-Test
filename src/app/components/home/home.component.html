@@ -1,0 +1,73 @@
+<section class="py-3">
+ <div class="row g-0 mt-2">
+  <div class="col-md-9">
+  <owl-carousel-o [options]="mainSlideOptions">
+    <ng-template carouselSlide>
+      <img height="400" src="./assets/images/New folder/R.jpg" alt="main-slide1">
+    </ng-template>  
+    <ng-template carouselSlide>
+      <img height="400" src="./assets/images/New folder/fish" alt="main-slide2">
+    </ng-template>  
+    <ng-template carouselSlide>
+      <img height="400" src="./assets/images/main-slider-3.jpeg" alt="main-slide3">
+    </ng-template>  
+  </owl-carousel-o>
+  </div>
+  <div class="col-md-3">
+   
+    <img height="200" class="w-100" src="./assets/images/New folder/hat.jpg" alt="slide2">
+    <img height="200" class="w-100" src="./assets/images/New folder/h.jpg" alt="slide2">
+  </div>
+ </div> 
+</section>
+
+<section class="py-4" *ngIf="Category.length>0">
+<h2>Popular Categories</h2>
+
+
+  <owl-carousel-o [options]="categoryOptions">
+
+    <ng-container *ngFor="let slide of Category">
+      <ng-template carouselSlide >
+        <img height="300" [src]="slide.image" 
+        [alt]="slide.name" 
+        [title]="slide.name">
+        <h3 class="h6 text-main">{{slide.name}}</h3>
+      </ng-template>
+    </ng-container>
+
+  </owl-carousel-o>
+ 
+
+
+</section>
+
+<section class="my-4" *ngIf="products.length>0">
+    <h2>popular products</h2>
+    <input type="text" placeholder="Search..."
+    [(ngModel)]="term"
+     class="my-3 form-control w-50 mx-auto form-control-sm ">
+    <div class="row g-4">
+        <div class="col-md-2" *ngFor="let item of products |search:term |slice:0:24 ">
+            <div class="product p-2"  >
+              <i *ngIf="!whishlistData.includes(item._id)" (click)="addfav(item._id)" class="fa-regular fa-heart heart"></i>
+             <i *ngIf="whishlistData.includes(item._id)" class="heart  fa-solid fa-heart fa-2x text-danger" (click)="removeFav(item._id)"></i>
+              <div [routerLink]="['/details' , item._id]" class="p-2 cursor-pointer">
+              <img class="w-100" [src]="item.imageCover" [alt]="item.title"> 
+              <h3 class="small">{{item.category.name}}</h3>
+              <h4 style="color: #0aad0a;" class="small">{{item.title.split(' ').slice(0,2).join(' ')}}</h4>
+              <div class=" d-flex align-items-center justify-content-between">
+                <span>{{item.price}} EGP</span>
+                <div >
+                <i class="fas fa-star rating-color tex"></i>
+                <span class="text-muted">{{item.ratingsAverage}}</span>
+             </div>
+              </div>
+             </div>
+              <button (click)="addProduct(item._id)"  class="btn-main w-100">Add poduct</button>
+            </div>
+
+        </div>
+    </div>
+</section>
+
